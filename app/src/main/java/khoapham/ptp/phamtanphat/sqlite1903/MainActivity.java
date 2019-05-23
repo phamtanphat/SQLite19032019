@@ -1,9 +1,12 @@
 package khoapham.ptp.phamtanphat.sqlite1903;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    SQLite sqLite;
+    static SQLite sqLite;
     ListView lvMonan;
     MonanAdapter monanAdapter;
     ArrayList<Monan> monanArrayList = new ArrayList<>();
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         lvMonan = findViewById(R.id.listviewMonan);
         monanAdapter = new MonanAdapter(this, android.R.layout.simple_list_item_1,monanArrayList);
         lvMonan.setAdapter(monanAdapter);
+
 
         sqLite = new SQLite(this,"Quanlymonan.sql",null , 1);
 
@@ -38,16 +42,7 @@ public class MainActivity extends AppCompatActivity {
 //        sqLite.QueryData(insertData1);
 //        sqLite.QueryData(insertData2);
 //        sqLite.QueryData(insertData3);
-        String data = "SELECT * FROM Monan";
-        Cursor contro = sqLite.getData(data);
-        while (contro.moveToNext()){
-            int id = contro.getInt(0);
-            String ten = contro.getString(1);
-            int gia = contro.getInt(2);
-            String diachi = contro.getString(3);
-            monanArrayList.add(new Monan(id,ten,gia,diachi));
-            monanAdapter.notifyDataSetChanged();
-        }
+        dongbodulieu();
         lvMonan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -58,5 +53,39 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Delete thanh cong", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_them_acitivity,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.item_them_acitivity){
+            Intent intent = new Intent(MainActivity.this,ThemmonanActivity.class);
+            startActivity(intent);
+        }
+        return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        dongbodulieu();
+        super.onRestart();
+    }
+    private void dongbodulieu(){
+        monanArrayList.clear();
+        String data = "SELECT * FROM Monan";
+        Cursor contro = sqLite.getData(data);
+        while (contro.moveToNext()){
+            int id = contro.getInt(0);
+            String ten = contro.getString(1);
+            int gia = contro.getInt(2);
+            String diachi = contro.getString(3);
+            monanArrayList.add(new Monan(id,ten,gia,diachi));
+            monanAdapter.notifyDataSetChanged();
+        }
     }
 }

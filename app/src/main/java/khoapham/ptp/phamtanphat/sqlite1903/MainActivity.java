@@ -1,7 +1,9 @@
 package khoapham.ptp.phamtanphat.sqlite1903;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,5 +25,18 @@ public class MainActivity extends AppCompatActivity {
 //        sqLite.QueryData(insertData1);
 //        sqLite.QueryData(insertData2);
 //        sqLite.QueryData(insertData3);
+        String data = "SELECT * FROM Monan";
+        Cursor contro = sqLite.getData(data);
+        while (contro.moveToNext()){
+            int id = contro.getInt(0);
+            String ten = contro.getString(1);
+            int gia = contro.getInt(2);
+            String diachi = contro.getString(3);
+//
+//            int vitri = contro.getColumnIndex("Diachi");
+//            Log.d("BBB", vitri + "");
+
+        }
+
     }
 }

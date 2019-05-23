@@ -29,7 +29,7 @@ public class MonanAdapter extends ArrayAdapter<Monan> {
         Monan monan = getItem(position);
 
         txtTen.setText(monan.getTenmonan());
-        txtGia.setText(monan.getGiamonan() + " đồng");
+        txtGia.setText(monan.getGiamonan()  + "");
         txtGia.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.icon_money,0);
         txtDiachi.setText(monan.getDiachi());
         return convertView;

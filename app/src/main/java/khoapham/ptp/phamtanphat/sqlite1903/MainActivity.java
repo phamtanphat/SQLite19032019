@@ -13,7 +13,8 @@ public class MainActivity extends AppCompatActivity {
 
         sqLite = new SQLite(this,"Quanlymonan.sql",null , 1);
 
-        String createTable = "CREATE TABLE IF NOT EXISTS Monan(Id INTEGER PRIMARY KEY AUTOINCREMENT , Tenmonan VARCHAR , Giamonan INTEGER , Diachi VARCHAR)";
-        sqLite.QueryData(createTable);
+//        String createTable = "CREATE TABLE IF NOT EXISTS Monan(Id INTEGER PRIMARY KEY AUTOINCREMENT , Tenmonan VARCHAR , Giamonan INTEGER , Diachi VARCHAR)";
+//        sqLite.QueryData(createTable);
+        String insertData = "INSERT INTO Monan VALUES(null,'Cơm chiên' , 45000 , 'Quận 1')";
     }
 }
